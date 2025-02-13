@@ -31,14 +31,20 @@ def predict_nsfw(df, model_path, extractor, threshold=0.85, text_column='prompt'
     new_predictions_prob = model.predict_proba(new_embeddings)
     new_predictions = np.where(new_predictions_prob[:, 1] > threshold, 1, 0)
     
-    df['nsfw_prediction'] = new_predictions
+    df['nsfw'] = new_predictions
     df.to_csv(save_path, index=False)
-    # return df
+    return df
 
 if __name__ == "__main__":
-    jdb_fp = '/home/ginger/code/gderiddershanghai/Diffusion-Face/data/text_data/JDB_Face_metadata (1).json'
-    save_path = '/home/ginger/code/gderiddershanghai/Diffusion-Face/data/text_data/JDB_Face.csv'
-    model_path = '/home/ginger/code/gderiddershanghai/Diffusion-Face/weights/svm_model_weights_nsfw.pkl'
-    df = pd.read_json(jdb_fp)
-    extractor = BertFeatureExtractor()
     
+    # GETTING NSFW PREDICTIONS
+    # jdb_fp = '/home/ginger/code/gderiddershanghai/Diffusion-Face/data/text_data/JDB_Face_metadata (1).json'
+    # save_path = '/home/ginger/code/gderiddershanghai/Diffusion-Face/data/text_data/JDB_Face.csv'
+    # model_path = '/home/ginger/code/gderiddershanghai/Diffusion-Face/weights/svm_model_weights_nsfw.pkl'
+    # df = pd.read_json(jdb_fp)
+    # extractor = BertFeatureExtractor()
+    # df = predict_nsfw(df, model_path, extractor, threshold=0.85, 
+    #                   text_column='prompt', 
+    #                   save_path=save_path)
+
+    # Checking whether the pictures contain a face or not.
