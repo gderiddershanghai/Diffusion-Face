@@ -36,7 +36,7 @@ if __name__ == "__main__":
     svm_model = SVC(kernel='rbf', C=C, gamma='scale', random_state=42, probability=True)
     svm_model.fit(X_train, y_train)
     y_val_pred = svm_model.predict_proba(X_val)
-
+    y_val_pred = np.where(y_val_pred[:, 1] > thres, 1, 0)
 
     val_accuracy = accuracy_score(y_val, y_val_pred)
     print("Val Acc: ", val_accuracy)
@@ -75,8 +75,8 @@ if __name__ == "__main__":
     save_fp = f'/home/ginger/code/gderiddershanghai/Diffusion-Face/weights/nsfw_weights_{C}.pkl'
     svm_model = SVC(kernel='rbf', C=C, gamma='scale', random_state=42, probability=True)
     svm_model.fit(X_train, y_train)
+    
     y_val_pred = svm_model.predict_proba(X_val)
-
     y_val_pred = np.where(y_val_pred[:, 1] > thres, 1, 0)
 
     val_accuracy = accuracy_score(y_val, y_val_pred)
